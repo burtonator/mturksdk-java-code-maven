@@ -29,22 +29,24 @@ ant jar
 
 mvn org.apache.maven.plugins:maven-install-plugin:2.3.1:install-file \
     -Dfile=build/lib/aws-mturk-dataschema-$VERSION.jar \
-    -DgroupId=aws-mturk-dataschema \
+    -DgroupId=com.amazonaws \
     -DartifactId=aws-mturk-dataschema \
     -Dversion=$VERSION \
     -Dpackaging=jar
 
 mvn org.apache.maven.plugins:maven-install-plugin:2.3.1:install-file \
     -Dfile=build/lib/aws-mturk-wsdl-$VERSION.jar \
-    -DgroupId=aws-mturk-wsdl \
+    -DgroupId=com.amazonaws \
     -DartifactId=aws-mturk-wsdl \
     -Dversion=$VERSION \
     -Dpackaging=jar
 
 mvn org.apache.maven.plugins:maven-install-plugin:2.3.1:install-file \
     -Dfile=build/lib/java-aws-mturk-$VERSION.jar \
-    -DgroupId=java-aws-mturk \
+    -DgroupId=com.amazonaws \
     -DartifactId=java-aws-mturk \
     -Dversion=$VERSION \
-    -Dpackaging=jar
+    -Dpackaging=jar \
+    -DpomFile=pom.xml
+
 
