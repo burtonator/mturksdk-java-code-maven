@@ -9,13 +9,16 @@
 # http://sourceforge.net/p/mturksdk-java/code/HEAD/tree/trunk/lib/third-party/
 
 VERSION=1.6.2
+REPO=http://my.nexus.repo:8081
 
-mvn org.apache.maven.plugins:maven-install-plugin:2.3.1:install-file \
+mvn deploy:deploy-file \
     -Dfile=lib/ext/commons-httpclient-contrib-3.1.jar \
     -DgroupId=commons-httpclient \
     -DartifactId=commons-httpclient-contrib \
     -Dversion=3.1 \
-    -Dpackaging=jar
+    -Dpackaging=jar \
+    -Durl=$REPO/nexus/content/repositories/thirdparty \
+    -DrepositoryId=nexus
 
 rm lib/third-party/*
 
@@ -24,27 +27,32 @@ mvn dependency:copy-dependencies -DoutputDirectory=lib/third-party/
 
 ant jar
 
-# now place the generated .jars into maven so that I can depend on them in 
-# artemis-mturk
+# now deploy the generated .jars into nexus
 
-mvn org.apache.maven.plugins:maven-install-plugin:2.3.1:install-file \
+mvn deploy:deploy-file \
     -Dfile=build/lib/aws-mturk-dataschema-$VERSION.jar \
-    -DgroupId=aws-mturk-dataschema \
+    -DgroupId=com.amazonaws \
     -DartifactId=aws-mturk-dataschema \
     -Dversion=$VERSION \
-    -Dpackaging=jar
+    -Dpackaging=jar \
+    -Durl=$REPO/nexus/content/repositories/thirdparty \
+    -DrepositoryId=nexus
 
-mvn org.apache.maven.plugins:maven-install-plugin:2.3.1:install-file \
+mvn deploy:deploy-file \
     -Dfile=build/lib/aws-mturk-wsdl-$VERSION.jar \
-    -DgroupId=aws-mturk-wsdl \
+    -DgroupId=com.amazonaws \
     -DartifactId=aws-mturk-wsdl \
     -Dversion=$VERSION \
-    -Dpackaging=jar
+    -Dpackaging=jar \
+    -Durl=$REPO/nexus/content/repositories/thirdparty \
+    -DrepositoryId=nexus
 
-mvn org.apache.maven.plugins:maven-install-plugin:2.3.1:install-file \
+mvn deploy:deploy-file \
     -Dfile=build/lib/java-aws-mturk-$VERSION.jar \
-    -DgroupId=java-aws-mturk \
+    -DgroupId=com.amazonaws \
     -DartifactId=java-aws-mturk \
     -Dversion=$VERSION \
-    -Dpackaging=jar
-
+    -Dpackaging=jar \
+    -DpomFile=pom.xml \
+    -Durl=$REPO/nexus/content/repositories/thirdparty \
+    -DrepositoryId=nexus
